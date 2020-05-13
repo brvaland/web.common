@@ -24,8 +24,8 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- script: echo $(GitVersion.NuGetVersionV2)
-  displayName: 'Display NuGetVersionV2'
+- script: echo $(GitVersion.SemVer)
+  displayName: 'Display SemVer'
 
 
 
