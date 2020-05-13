@@ -18,3 +18,7 @@ steps:
 
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+
+- script: echo $(GitVersion_NuGetVersion)
+  displayName: 'display GitVersion NuGetVersion'
+
