@@ -1,7 +1,10 @@
 next-version: 1.0.0
+mode: ContinuousDeployment
+continuous-delivery-fallback-tag: ''
 branches:
   master:
-    tag: alpha
+    mode: ContinuousDeployment
+    tag: 'alpha'
 ignore:
   sha: []
 merge-message-formats: {}
