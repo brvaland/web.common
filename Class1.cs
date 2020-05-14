@@ -4,6 +4,6 @@ namespace web.common
 {
     public class Class1
     {
-        string testfix = "";
+        string testfix = "bug-02";
     }
 }
