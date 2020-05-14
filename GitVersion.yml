@@ -5,6 +5,9 @@ branches:
   master:
     mode: ContinuousDeployment
     tag: 'alpha'
+  pull-request:
+    mode: ContinuousDeployment
+    tag: 'pr'
 ignore:
   sha: []
 merge-message-formats: {}
