@@ -8,6 +8,14 @@ branches:
   pull-request:
     mode: ContinuousDeployment
     tag: 'pr'
+    increment: None
+    prevent-increment-of-merged-branch-version: false
+    tag-number-pattern: '[/-](?<number>\d+)[-/]'
+    track-merge-target: false
+    regex: (pull|pull\-requests|pr|[0-9]+)[/-]
+    tracks-release-branches: false
+    is-release-branch: false
+
 ignore:
   sha: []
 merge-message-formats: {}
