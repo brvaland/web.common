@@ -14,6 +14,7 @@ variables:
 
 steps:
 - task: GitVersion@5
+  displayName: gitversion 
   inputs:
     runtime: 'core'
     configFilePath: 'GitVersion.yml'
@@ -21,11 +22,18 @@ steps:
 - script: dotnet restore
   displayName: 'dotnet restore'
 
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build --configuration $(buildConfiguration) /p:Version=$(GitVersion.SemVer);AssemblyVersion=$(GitVersion.AssemblySemVer)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- script: echo $(GitVersion.SemVer)
-  displayName: 'Display SemVer'
+- script: dotnet pack --output $(Build.ArtifactStagingDirectory) --configuration $(buildConfiguration) /p:Version=$(GitVersion.SemVer);AssemblyVersion=$(GitVersion.AssemblySemVer)
+  displayName: 'dotnet pack $(buildConfiguration)'
 
-
-
+- task: NuGetCommand@2
+  displayName: 'NuGet Push'
+  condition: and (succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
+  inputs:
+    command: 'push' 
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'c16f4db1-6f90-4b89-8743-72d31bfcf503/b868e38f-8a99-4055-af2a-1591fcaf3749'
+  
